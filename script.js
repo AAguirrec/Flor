@@ -3,22 +3,36 @@
    ===================================================== */
 const CONFIG = {
   introText: "Hay algo que queria mostrarte.<br>Tocalo y dejalo florecer.",
-  finalMessageHTML: `Como un lirio entre los espinos, es<br>
-    mi amada entre las doncellas.<br>
-  FELIZ CUMPLEAÑOS .`,
-  signature: "&mdash; VALERIA LUNA 🌸",
+  finalMessageHTML: `Porque hay personas que llegan a tu vida<br>
+    y simplemente hacen que todo se sienta<br>
+    un poquito mas bonito.`,
+  signature: "&mdash; [Escribe aqui tu nombre]",
   musicEnabled: true,
   musicFile: "cancion.mp3",  // pon aqui el nombre exacto de tu archivo, debe estar en esta misma carpeta
+  photos: ["foto1.jpg", "foto2.jpg", "foto3.jpg"], // pon aqui los nombres de tus fotos (hasta 5), colocalas en esta misma carpeta
   // tiempos en milisegundos, contados desde que se toca "Abrir"
   timeConvergeStart: 150,     // cuando empiezan a converger las particulas de luz
   timePlayingClass: 750,      // cuando arranca el armado de la flor (petalo por petalo)
   timeAmbientStart: 3600,     // cuando empiezan a flotar petalos/luces por la pantalla
-  timeToFinalScreen: 10000     // cuando aparece la pantalla final
+  timeToFinalScreen: 8600     // cuando aparece la pantalla final
 };
 
 document.querySelector('#finalScreen p').innerHTML = CONFIG.finalMessageHTML;
 document.querySelector('#finalScreen .signature').innerHTML = CONFIG.signature;
 document.querySelector('.intro-text').innerHTML = CONFIG.introText;
+
+/* ---------- collage de fotos flotando en la pantalla final ---------- */
+const photoCollage = document.getElementById('photoCollage');
+CONFIG.photos.slice(0, 5).forEach((filename, i) => {
+  const wrap = document.createElement('div');
+  wrap.className = `collagePhoto slot${i}`;
+  const img = document.createElement('img');
+  img.src = filename;
+  img.alt = '';
+  img.onerror = () => { wrap.remove(); }; // si falta el archivo, simplemente no se muestra
+  wrap.appendChild(img);
+  photoCollage.appendChild(wrap);
+});
 
 /* ---------- destellos sutiles de fondo ---------- */
 const sparkleField = document.getElementById('sparkleField');
