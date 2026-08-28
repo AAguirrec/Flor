@@ -6,7 +6,7 @@ const CONFIG = {
   finalMessageHTML: `Como un lirio entre los espinos, es<br>
     mi amada entre las doncellas.<br>
   FELIZ CUMPLEAÑOS .`,
-  signature: "&mdash; Valeria Luna 🌸",
+  signature: "&mdash; VALERIA LUNA 🌸",
   musicEnabled: true,
   musicFile: "cancion.mp3",  // pon aqui el nombre exacto de tu archivo, debe estar en esta misma carpeta
   // tiempos en milisegundos, contados desde que se toca "Abrir"
