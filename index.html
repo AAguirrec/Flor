@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#ffd9e8">
+<title>Luna 🌸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="stage">
+  <div id="sparkleField"></div>
+  <button id="muteBtn" aria-label="Silenciar musica">&#9834;</button>
+
+  <div id="intro">
+    <div class="intro-eyebrow">EN ESTE DÌA TAN ESPECIAL</div>
+    <p class="intro-text">Hay algo que queria mostrarte.<br>Tocalo y dejalo florecer.</p>
+    <button id="openBtn">Abrir</button>
+  </div>
+
+  <div id="scene">
+    <div id="glow"></div>
+
+    <svg id="flowerSvg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="outerGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#fff5f8"/>
+          <stop offset="42%" stop-color="#ef7aab"/>
+          <stop offset="100%" stop-color="#c1256c"/>
+        </linearGradient>
+        <linearGradient id="innerGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#fff9fb"/>
+          <stop offset="48%" stop-color="#f5a0c4"/>
+          <stop offset="100%" stop-color="#d8619a"/>
+        </linearGradient>
+        <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff1e8"/>
+          <stop offset="100%" stop-color="#e8a94e"/>
+        </radialGradient>
+        <!-- petalo tipo lirio: esbelto, puntiagudo, base en (0,0) apuntando hacia arriba -->
+        <path id="petalPath" d="M0,0 C-14,-20 -20,-56 -16,-96 C-13,-118 -6,-136 0,-150 C6,-136 13,-118 16,-96 C20,-56 14,-20 0,0 Z"/>
+      </defs>
+
+      <g id="bloomGroup">
+        <!-- halo suave detras de la flor -->
+        <circle id="baseHalo" cx="200" cy="200" r="70" fill="url(#centerGrad)" opacity="0"/>
+
+        <!-- 6 petalos exteriores, dibujados primero (quedan detras) -->
+        <use class="petal outer p0"  href="#petalPath" style="--ang:0deg;   --scale:1;    animation-delay:0.00s"/>
+        <use class="petal outer p2"  href="#petalPath" style="--ang:60deg;  --scale:1;    animation-delay:0.30s"/>
+        <use class="petal outer p4"  href="#petalPath" style="--ang:120deg; --scale:1;    animation-delay:0.60s"/>
+        <use class="petal outer p6"  href="#petalPath" style="--ang:180deg; --scale:1;    animation-delay:0.90s"/>
+        <use class="petal outer p8"  href="#petalPath" style="--ang:240deg; --scale:1;    animation-delay:1.20s"/>
+        <use class="petal outer p10" href="#petalPath" style="--ang:300deg; --scale:1;    animation-delay:1.50s"/>
+
+        <!-- 6 petalos interiores, un poco mas pequenos, quedan encima -->
+        <use class="petal inner p1"  href="#petalPath" style="--ang:30deg;  --scale:0.72; animation-delay:0.15s"/>
+        <use class="petal inner p3"  href="#petalPath" style="--ang:90deg;  --scale:0.72; animation-delay:0.45s"/>
+        <use class="petal inner p5"  href="#petalPath" style="--ang:150deg; --scale:0.72; animation-delay:0.75s"/>
+        <use class="petal inner p7"  href="#petalPath" style="--ang:210deg; --scale:0.72; animation-delay:1.05s"/>
+        <use class="petal inner p9"  href="#petalPath" style="--ang:270deg; --scale:0.72; animation-delay:1.35s"/>
+        <use class="petal inner p11" href="#petalPath" style="--ang:330deg; --scale:0.72; animation-delay:1.65s"/>
+
+        <!-- centro: pequenos estambres -->
+        <circle class="stamenDot" cx="200" cy="200" r="4" style="animation-delay:2.0s"/>
+        <circle class="stamenDot" cx="191" cy="193" r="3" style="animation-delay:2.08s"/>
+        <circle class="stamenDot" cx="209" cy="193" r="3" style="animation-delay:2.16s"/>
+        <circle class="stamenDot" cx="191" cy="207" r="3" style="animation-delay:2.24s"/>
+        <circle class="stamenDot" cx="209" cy="207" r="3" style="animation-delay:2.32s"/>
+        <circle class="stamenDot" cx="200" cy="188" r="2.6" style="animation-delay:2.4s"/>
+        <circle class="stamenDot" cx="200" cy="212" r="2.6" style="animation-delay:2.4s"/>
+
+        <!-- manchas caracteristicas del Stargazer, cerca de la garganta -->
+        <ellipse class="spotDot" cx="196" cy="178" rx="2.6" ry="3.6" style="animation-delay:2.55s"/>
+        <ellipse class="spotDot" cx="206" cy="182" rx="2.2" ry="3.2" style="animation-delay:2.6s"/>
+        <ellipse class="spotDot" cx="188" cy="188" rx="2.4" ry="3.4" style="animation-delay:2.65s"/>
+        <ellipse class="spotDot" cx="212" cy="192" rx="2" ry="3" style="animation-delay:2.7s"/>
+        <ellipse class="spotDot" cx="197" cy="220" rx="2.2" ry="3.2" style="animation-delay:2.6s"/>
+        <ellipse class="spotDot" cx="207" cy="216" rx="2" ry="2.8" style="animation-delay:2.68s"/>
+        <ellipse class="spotDot" cx="185" cy="205" rx="1.8" ry="2.6" style="animation-delay:2.75s"/>
+        <ellipse class="spotDot" cx="215" cy="205" rx="1.8" ry="2.6" style="animation-delay:2.75s"/>
+      </g>
+    </svg>
+  </div>
+
+  <div id="finalScreen">
+    <div class="label">Para ti</div>
+    <!-- ================================================================
+         PERSONALIZA AQUI TU MENSAJE FINAL (o hazlo desde script.js -> CONFIG)
+         ================================================================ -->
+    <p>Como un lirio entre los espinos, es<br>
+    mi amada entre las doncellas<br>
+    DIOS TE BENDIGA</p>
+    <div class="signature">&mdash; FELIZ CUMPLEAÑOS </div>
+    <button id="replayBtn">Volver a ver la flor</button>
+  </div>
+</div>
+
+  <audio id="bgMusic" loop preload="auto"></audio>
+<script src="script.js"></script>
+</body>
+</html>

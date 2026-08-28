@@ -1,0 +1,221 @@
+:root{
+  --bg-1:#fff0f5;
+  --bg-2:#ffc9dd;
+  --bg-3:#f79bc0;
+  --gold:#c9862e;
+  --gold-light:#e3ac52;
+  --text-dark:#6b2142;
+  --petal-fall:#f2a0c4;
+}
+
+*{ box-sizing:border-box; -webkit-user-select:none; user-select:none; }
+
+html,body{
+  margin:0; padding:0;
+  height:100dvh; width:100vw;
+  background:radial-gradient(ellipse at 50% 10%, var(--bg-1), var(--bg-2) 55%, var(--bg-3) 100%);
+  overflow:hidden;
+  font-family:'EB Garamond', serif;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:none;
+  overscroll-behavior:none;
+}
+
+#stage{
+  position:relative;
+  width:100%; height:100dvh;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ---------- destellos de fondo, sutiles ---------- */
+.bgSpark{
+  position:absolute;
+  background:#fff;
+  border-radius:50%;
+  opacity:0.6;
+  animation:twinkle 4s ease-in-out infinite;
+}
+@keyframes twinkle{ 0%,100%{ opacity:0.2; } 50%{ opacity:0.8; } }
+
+/* ---------- boton de musica ---------- */
+#muteBtn{
+  position:absolute; top:calc(16px + env(safe-area-inset-top)); right:16px;
+  z-index:40; width:38px; height:38px; border-radius:50%;
+  background:rgba(255,255,255,0.55); border:1px solid rgba(255,255,255,0.7);
+  color:var(--gold); font-size:16px; display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity 0.8s ease; pointer-events:none;
+}
+#muteBtn.show{ opacity:1; pointer-events:auto; }
+
+/* ---------- INTRO ---------- */
+#intro{
+  position:absolute; inset:0; z-index:30;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:8vw;
+  transition:opacity 1.3s ease, visibility 1.3s ease;
+}
+#intro.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+.intro-eyebrow{
+  font-family:'Cormorant Garamond', serif; letter-spacing:0.35em; text-transform:uppercase;
+  font-size:0.72rem; color:var(--gold); opacity:0.9; margin-bottom:1.3rem;
+}
+.intro-text{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:400;
+  font-size:1.45rem; line-height:1.6; color:var(--text-dark); max-width:25rem; margin:0 0 2.4rem 0;
+}
+#openBtn{
+  font-family:'Cormorant Garamond', serif; font-size:0.95rem; letter-spacing:0.18em; text-transform:uppercase;
+  color:#fff8ee; background:linear-gradient(135deg,var(--gold),var(--gold-light)); border:none;
+  padding:0.85rem 2.1rem; border-radius:999px; cursor:pointer;
+  box-shadow:0 0 24px rgba(201,134,46,0.35);
+}
+#openBtn:active{ transform:scale(0.96); }
+
+/* ---------- ESCENA DE LA FLOR ---------- */
+#scene{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  opacity:0; transition:opacity 1s ease;
+}
+#scene.show{ opacity:1; }
+#scene.leaving{ opacity:0; }
+
+#glow{
+  position:absolute;
+  width:min(60vw, 45vh, 380px); height:min(60vw, 45vh, 380px); border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,0.8), rgba(255,214,235,0.3) 45%, transparent 70%);
+  filter:blur(8px);
+  opacity:0;
+  transform:scale(0.6);
+  pointer-events:none;
+}
+#scene.playing #glow{
+  animation:glowIn 2s ease-out forwards;
+  animation-delay:2.3s;
+}
+@keyframes glowIn{
+  0%{ opacity:0; transform:scale(0.5); }
+  55%{ opacity:1; }
+  100%{ opacity:0.65; transform:scale(1); }
+}
+
+svg#flowerSvg{ width:min(92vw, 70vh, 560px); height:auto; overflow:visible; position:relative; z-index:2; }
+
+#bloomGroup{ transform-origin:200px 200px; }
+#bloomGroup.floating{ animation:floatBob 5s ease-in-out infinite; }
+@keyframes floatBob{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
+}
+
+#baseHalo{ opacity:0; }
+#scene.playing #baseHalo{
+  animation:haloIn 1.4s ease forwards;
+  animation-delay:0.1s;
+}
+@keyframes haloIn{ to{ opacity:0.55; } }
+
+/* Los petalos NO animan hasta que #scene tiene la clase 'playing'.
+   Esto es clave: antes la animacion arrancaba desde que cargaba la pagina,
+   asi que si el usuario tardaba en tocar "Abrir" la flor ya aparecia armada
+   de una sola vez. Ahora el reloj de la animacion empieza justo al tocar. */
+.petal{
+  opacity:0;
+  transform-origin:0 0;
+  will-change:transform,opacity;
+}
+#scene.playing .petal{
+  animation:petalBloom 1.15s cubic-bezier(.2,.9,.25,1.15) forwards;
+}
+.petal.outer{ fill:url(#outerGrad); }
+.petal.inner{ fill:url(#innerGrad); }
+
+@keyframes petalBloom{
+  0%   { opacity:0;   transform:translate(200px,200px) rotate(calc(var(--ang) - 26deg)) scale(0.05); }
+  55%  { opacity:1;   transform:translate(200px,200px) rotate(calc(var(--ang) + 5deg))  scale(calc(var(--scale) * 1.08)); }
+  100% { opacity:1;   transform:translate(200px,200px) rotate(var(--ang)) scale(var(--scale)); }
+}
+
+.stamenDot{
+  fill:#c9862e;
+  opacity:0;
+  transform-origin:200px 200px;
+}
+#scene.playing .stamenDot{
+  animation:stamenPop 0.6s ease-out forwards;
+}
+@keyframes stamenPop{
+  0%{ opacity:0; transform:scale(0.2); }
+  60%{ opacity:1; transform:scale(1.3); filter:drop-shadow(0 0 4px rgba(227,172,82,0.9)); }
+  100%{ opacity:1; transform:scale(1); filter:drop-shadow(0 0 2px rgba(227,172,82,0.5)); }
+}
+
+.spotDot{
+  fill:#7a1533;
+  opacity:0;
+  transform-origin:200px 200px;
+}
+#scene.playing .spotDot{
+  animation:spotFade 0.7s ease forwards;
+}
+@keyframes spotFade{ to{ opacity:0.85; } }
+
+/* ---------- particulas que convergen al centro justo antes de florecer ---------- */
+.convergeDot{
+  position:fixed;
+  width:5px; height:5px; border-radius:50%;
+  background:#fff2d9;
+  box-shadow:0 0 8px 2px rgba(243,196,106,0.9);
+  pointer-events:none;
+  z-index:6;
+}
+
+/* ---------- petalos y luces flotando por toda la pantalla (ambiente) ---------- */
+.floatPetal, .lightDot{ position:fixed; top:-40px; pointer-events:none; z-index:5; }
+.floatPetal svg{ display:block; filter:drop-shadow(0 0 3px rgba(233,139,180,0.3)); }
+.lightDot{ width:4px; height:4px; border-radius:50%; background:var(--gold-light); box-shadow:0 0 6px 1px rgba(227,172,82,0.8); }
+
+/* ---------- PANTALLA FINAL ---------- */
+#finalScreen{
+  position:absolute; inset:0; z-index:20;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:10vw;
+  opacity:0; visibility:hidden;
+  transition:opacity 1.8s ease, visibility 1.8s ease;
+}
+#finalScreen.show{ opacity:1; visibility:visible; }
+#finalScreen .label{
+  font-family:'Cormorant Garamond', serif; letter-spacing:0.32em; text-transform:uppercase;
+  font-size:0.72rem; color:var(--gold); margin-bottom:1rem;
+}
+#finalScreen p{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.35rem; line-height:1.7;
+  color:var(--text-dark); margin:0; max-width:24rem;
+}
+#finalScreen .signature{
+  margin-top:2rem; font-family:'Cormorant Garamond', serif; font-size:1rem; letter-spacing:0.08em;
+  color:var(--gold); opacity:0.9;
+}
+#replayBtn{
+  margin-top:2.4rem;
+  font-family:'Cormorant Garamond', serif; font-size:0.85rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--text-dark); background:transparent;
+  border:1px solid var(--gold); border-radius:999px;
+  padding:0.65rem 1.6rem; cursor:pointer;
+  opacity:0; transform:translateY(6px);
+  transition:opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s, background 0.2s ease, color 0.2s ease;
+}
+#finalScreen.show #replayBtn{ opacity:1; transform:translateY(0); }
+#replayBtn:active{ background:var(--gold); color:#fff8ee; }
+
+@media (max-width:380px){
+  .intro-text{ font-size:1.25rem; }
+  #finalScreen p{ font-size:1.15rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #scene.playing .petal, #scene.playing .stamenDot, #scene.playing #glow, #scene.playing #baseHalo{
+    animation-duration:0.01ms !important; animation-delay:0s !important;
+  }
+  #bloomGroup.floating{ animation:none; }
+}
