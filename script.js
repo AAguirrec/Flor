@@ -5,8 +5,8 @@ const CONFIG = {
   introText: "Hay algo que queria mostrarte.<br>Tocalo y dejalo florecer.",
   finalMessageHTML: `Como un lirio entre los espinos, es<br>
     mi amada entre las doncellas.<br>
-  DIOS TE BENDIGA .`,
-  signature: "&mdash; FELIZ CUMPLEAÑOS",
+  FELIZ CUMPLEAÑOS .`,
+  signature: "&mdash; Valeria Luna 🌸",
   musicEnabled: true,
   musicFile: "cancion.mp3",  // pon aqui el nombre exacto de tu archivo, debe estar en esta misma carpeta
   // tiempos en milisegundos, contados desde que se toca "Abrir"
