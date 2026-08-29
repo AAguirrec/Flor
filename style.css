@@ -205,7 +205,7 @@ svg#flowerSvg{ width:min(92vw, 70vh, 560px); height:auto; overflow:visible; posi
 }
 .collagePhoto{
   position:absolute;
-  width:104px; height:128px;
+  width:114px; height:138px;
   background:#fff;
   padding:6px 6px 14px 6px;
   border-radius:4px;
