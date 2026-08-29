@@ -3,10 +3,10 @@
    ===================================================== */
 const CONFIG = {
   introText: "Hay algo que queria mostrarte.<br>Tocalo y dejalo florecer.",
-  finalMessageHTML: `Porque hay personas que llegan a tu vida<br>
-    y simplemente hacen que todo se sienta<br>
-    un poquito mas bonito.`,
-  signature: "&mdash; [Escribe aqui tu nombre]",
+  finalMessageHTML: `Como un lirio entre los espinos, es<br>
+    mi amada entre las doncellas.<br>
+    Feliz Cumpleaños.`,
+  signature: "&mdash; Valeria Luna",
   musicEnabled: true,
   musicFile: "cancion.mp3",  // pon aqui el nombre exacto de tu archivo, debe estar en esta misma carpeta
   photos: ["foto1.jpg", "foto2.jpg", "foto3.jpg", "foto4.jpg"], // pon aqui los nombres de tus fotos (hasta 5), colocalas en esta misma carpeta
@@ -14,7 +14,7 @@ const CONFIG = {
   timeConvergeStart: 150,     // cuando empiezan a converger las particulas de luz
   timePlayingClass: 750,      // cuando arranca el armado de la flor (petalo por petalo)
   timeAmbientStart: 3600,     // cuando empiezan a flotar petalos/luces por la pantalla
-  timeToFinalScreen: 8600     // cuando aparece la pantalla final
+  timeToFinalScreen: 10000     // cuando aparece la pantalla final
 };
 
 document.querySelector('#finalScreen p').innerHTML = CONFIG.finalMessageHTML;
