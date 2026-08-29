@@ -9,7 +9,7 @@ const CONFIG = {
   signature: "&mdash; Valeria Luna",
   musicEnabled: true,
   musicFile: "cancion.mp3",  // pon aqui el nombre exacto de tu archivo, debe estar en esta misma carpeta
-  photos: ["foto1.jpg", "foto2.jpg", "foto3.jpg", "foto4.jpg"], // pon aqui los nombres de tus fotos (hasta 5), colocalas en esta misma carpeta
+  photos: ["foto1.jpeg", "foto2.jpeg", "foto3.jpeg", "foto4.jpeg"], // pon aqui los nombres de tus fotos (hasta 5), colocalas en esta misma carpeta
   // tiempos en milisegundos, contados desde que se toca "Abrir"
   timeConvergeStart: 150,     // cuando empiezan a converger las particulas de luz
   timePlayingClass: 750,      // cuando arranca el armado de la flor (petalo por petalo)
